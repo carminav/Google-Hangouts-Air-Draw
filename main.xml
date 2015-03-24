@@ -1,0 +1,199 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<Module>
+
+   <!-- noo -->
+	<ModulePrefs title="Hangout Starter">
+		<Require feature="rpc" />
+		<Require feature="views" />
+		<Require feature="locked-domain" />
+	</ModulePrefs>
+	
+	<Content type="html"><![CDATA[
+	
+	<html>
+	
+	  <div id="hand-summary">
+	  	<div id = "hand-center-X">X: </div>
+	  	<div id = "hand-center-Y">Y: </div>
+	  	<div id = "hand-confidence">confidence: </div>
+	  	<div id = "hand-height">height: </div>
+	  	<div id = "hand-width">width: </div>
+	  	
+	  </div>
+	
+	<body>
+	
+	<style>
+	
+	body {
+		width: 100%;
+		height: 100%;
+	}
+	
+	#hand-summary {
+		width: 300px;
+		float: right;
+	}
+
+	
+	</style>
+
+	<script src="//plus.google.com/hangouts/_/api/dev/hangout.js"></script>
+	
+	<script src="https://google-hangouts-app.mybluemix.net/AirDraw2/drawer.js"></script>
+	
+	
+	<script>
+	
+	
+	var CROSS = "http://google-hangouts-app.mybluemix.net/AirDraw2/cross.png"
+    var interval = null;
+    var handOverlay = null;
+    var handCross = gapi.hangout.av.effects.createImageResource(CROSS);
+    
+    
+    
+    //COLOR CONSTANTS
+     var RED_POINT = "http://google-hangouts-app.mybluemix.net/AirDraw2/redpaint.png";
+     var BLUE_POINT = "http://google-hangouts-app.mybluemix.net/AirDraw2/bluepaint.png";
+     var YELLOW_POINT = "http://google-hangouts-app.mybluemix.net/AirDraw2/yellowpaint.png";
+     var GREEN_POINT = "http://google-hangouts-app.mybluemix.net/AirDraw2/greenpaint.png";
+    
+    var currentColor = "http://google-hangouts-app.mybluemix.net/AirDraw2/redpaint.png";
+    
+    
+    function drawWithHand(e) {
+	  if (e.hasHand) {
+		console.log("hand exists");
+		var hand = e.hands[0];
+		document.getElementById('hand-center-X').innerHTML = 'X:  ' + hand.center.x;
+		document.getElementById('hand-center-Y').innerHTML = 'Y:  ' + hand.center.y;
+		document.getElementById('hand-confidence').innerHTML = 'confidence:  ' + hand.confidence;
+		document.getElementById('hand-height').innerHTML = 'height:  ' + hand.height;
+		document.getElementById('hand-width').innerHTML = 'width:  ' + hand.width;
+
+        
+        if (isInPallette(hand.center.x, hand.center.y)){
+           updateCurrentColor(pallette, hand.center.y); 
+           console.log("in pallette");
+        }
+        else {
+           drawPoint(currentColor, 0.01, hand.center.x, hand.center.y);
+        }
+        
+        
+        
+        
+        
+		
+	
+		handOverlay = handCross.createHandTrackingOverlay({
+        'trackingFeature':
+          gapi.hangout.av.effects.HandTrackingFeature.HAND_CENTER,
+        'scaleWithHand': true,
+        'scale': 0.125
+         });
+        handOverlay.setVisible(true);
+		
+	  } else {
+		console.log("hand does not exist");
+		if (handOverlay != null) handOverlay.setVisible(false);
+	  }
+    }
+    
+    
+   function updateCurrentColor(pallette, y) {
+   	console.log("update current color called");
+var prevColor = currentColor;
+var hoverAreaHeight = 0.2;
+var top = -0.5;
+if (y <= top + hoverAreaHeight) {
+currentColor = RED_POINT;
+console.log("UPDATE TO RED");
+} else if (y <= top + 2 * hoverAreaHeight) {
+currentColor = BLUE_POINT;
+console.log("UPDATE TO BLUE");
+} else if (y <= top + 3 * hoverAreaHeight) {
+currentColor = YELLOW_POINT;
+console.log("UPDATE TO YELLOW");
+} else {
+currentColor = GREEN_POINT;
+console.log("UPDATE TO GREEN");
+} 
+
+// update sizes
+//pallette[prevColor].setScale(0.1, gapi.hangout.av.effects.ScaleReference.HEIGHT);
+//pallette[currentColor].setScale(0.18, gapi.hangout.av.effects.ScaleReference.HEIGHT);
+
+}
+
+
+    
+   function isInPallette(x, y){
+        return (x <= -0.4); 
+   }
+
+
+   function initPallette() {
+
+var x = -0.467; // Left hand side
+
+var pallette = [];
+var magnitude = 0.1;
+var y = -0.40;
+var delta = 0.20;
+
+pallette[RED_POINT] = drawPoint(RED_POINT, magnitude, x, y);
+y += delta;
+pallette[BLUE_POINT] = drawPoint(BLUE_POINT, magnitude, x, y);
+y += delta;
+pallette[YELLOW_POINT] = drawPoint(YELLOW_POINT, magnitude, x, y);
+y += delta;
+pallette[GREEN_POINT] = drawPoint(GREEN_POINT, magnitude, x, y);
+
+
+
+return pallette;
+
+}
+
+
+var pallette = null; 
+
+	function init() {
+      // When API is ready...                                                         
+   	  gapi.hangout.onApiReady.add(
+       function(eventObj) {
+        if (eventObj.isApiReady) {
+        	
+        	var canvas = gapi.hangout.layout.getVideoCanvas();
+        	canvas.setHeight(window.innerHeight);
+        	canvas.setVisible(true);
+        	
+        	pallette = initPallette();
+        	
+        	gapi.hangout.av.effects.onHandTrackingDataChanged.add(drawWithHand);
+
+           	
+        }
+      });
+      
+      
+      
+      
+      
+
+      }
+      gadgets.util.registerOnLoadHandler(init);
+      
+      
+	</script>
+	</body>
+	</html>
+	
+	
+	]]>
+
+
+</Content>
+</Module>
