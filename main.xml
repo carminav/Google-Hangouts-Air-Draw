@@ -13,11 +13,11 @@
 	<html>
 	
 	  <div id="hand-summary">
-	  	<div id = "hand-center-X">X: </div>
+	  	<div id = "hand-center-X">X: TEST</div>
 	  	<div id = "hand-center-Y">Y: </div>
 	  	<div id = "hand-confidence">confidence: </div>
 	  	<div id = "hand-height">height: </div>
-	  	<div id = "hand-width">width: </div>
+	  	<div id = "hand-width">width: TESST </div>
 	  	
 	  </div>
 	
