@@ -40,13 +40,13 @@
 
 	<script src="//plus.google.com/hangouts/_/api/dev/hangout.js"></script>
 	
-	<script src="https://google-hangouts-app.mybluemix.net/AirDraw2/drawer.js"></script>
+	<script src="https://raw.githubusercontent.com/carminav/Google-Hangouts-Air-Draw/master/js/drawer.js"></script>
 	
 	
 	<script>
 	
 	
-	var CROSS = "http://google-hangouts-app.mybluemix.net/AirDraw2/cross.png"
+	var CROSS = "https://raw.githubusercontent.com/carminav/Google-Hangouts-Air-Draw/master/images/cross.png"
     var interval = null;
     var handOverlay = null;
     var handCross = gapi.hangout.av.effects.createImageResource(CROSS);
@@ -54,12 +54,12 @@
     
     
     //COLOR CONSTANTS
-     var RED_POINT = "http://google-hangouts-app.mybluemix.net/AirDraw2/redpaint.png";
-     var BLUE_POINT = "http://google-hangouts-app.mybluemix.net/AirDraw2/bluepaint.png";
-     var YELLOW_POINT = "http://google-hangouts-app.mybluemix.net/AirDraw2/yellowpaint.png";
-     var GREEN_POINT = "http://google-hangouts-app.mybluemix.net/AirDraw2/greenpaint.png";
+     var RED_POINT = "https://raw.githubusercontent.com/carminav/Google-Hangouts-Air-Draw/master/images/redpaint.png";
+     var BLUE_POINT = "https://github.com/carminav/Google-Hangouts-Air-Draw/blob/master/images/bluepaint.png";
+     var YELLOW_POINT = "https://raw.githubusercontent.com/carminav/Google-Hangouts-Air-Draw/master/images/yellowpaint.png";
+     var GREEN_POINT = "https://raw.githubusercontent.com/carminav/Google-Hangouts-Air-Draw/master/images/greenpaint.png";
     
-    var currentColor = "http://google-hangouts-app.mybluemix.net/AirDraw2/redpaint.png";
+    var currentColor = "https://raw.githubusercontent.com/carminav/Google-Hangouts-Air-Draw/master/images/redpaint.png";
     
     
     function drawWithHand(e) {
