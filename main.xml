@@ -50,7 +50,8 @@
     var interval = null;
     var handOverlay = null;
     var handCross = gapi.hangout.av.effects.createImageResource(CROSS);
-    alert("hello");
+    
+		
     
     
     //COLOR CONSTANTS
@@ -59,8 +60,9 @@
      var YELLOW_POINT = "https://raw.githubusercontent.com/carminav/Google-Hangouts-Air-Draw/master/images/yellowpaint.png";
      var GREEN_POINT = "https://raw.githubusercontent.com/carminav/Google-Hangouts-Air-Draw/master/images/greenpaint.png";
     
-    var currentColor = "//raw.githubusercontent.com/carminav/Google-Hangouts-Air-Draw/master/images/redpaint.png";
+    var currentColor = "https://raw.githubusercontent.com/carminav/Google-Hangouts-Air-Draw/master/images/redpaint.png";
     
+		alert(currentColor);
     
     function drawWithHand(e) {
 	  if (e.hasHand) {
